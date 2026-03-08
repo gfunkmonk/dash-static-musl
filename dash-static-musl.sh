@@ -16,6 +16,7 @@ ARCH=${ARCH:-x86_64}
 DASH_VERSION="0.5.13.1"
 ALPINE_VERSION="3.23.3"
 ALPINE_MAJOR_MINOR="${ALPINE_VERSION%.*}"
+PATCH_DIR="$PWD/patches"
 
 DASH_MIRRORS=(
   "http://gondor.apana.org.au/~herbert/dash/files/dash-${DASH_VERSION}.tar.gz"
@@ -102,10 +103,12 @@ bison \
 flex \
 autoconf \
 autoconf \
+patch \
 upx \
 perl && \
 tar xf dash-${DASH_VERSION}.tar.gz && \
 cd dash-${DASH_VERSION}/ && \
+for i in ${PATCH_DIR}/*.patch; do patch -p1 < "$i"; done && \
 ./configure CC=gcc --enable-static LDFLAGS='-static -Wl,--gc-sections -ffunction-sections -fdata-sections -Wl,--allow-multiple-definition' CFLAGS='-Os -static -ffunction-sections -fdata-sections -fcommon -Wno-maybe-uninitialized' && \
 CC=gcc LDFLAGS='-static -Wl,--gc-sections -ffunction-sections -fdata-sections -Wl,--allow-multiple-definition' make -j\$(nproc) && \
 strip src/dash && \
