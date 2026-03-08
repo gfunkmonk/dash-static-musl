@@ -106,8 +106,8 @@ upx \
 perl && \
 tar xf dash-${DASH_VERSION}.tar.gz && \
 cd dash-${DASH_VERSION}/ && \
-./configure CC=gcc --enable-static LDFLAGS='-static -Wl,--gc-sections -ffunction-sections -fdata-sections' CFLAGS='-Os -Wno-maybe-uninitialized' && \
-CC=clang LDFLAGS='--static -Wl,--gc-sections -ffunction-sections -fdata-sections' make -j\$(nproc) && \
+./configure CC=gcc --enable-static LDFLAGS='-static -Wl,--gc-sections -ffunction-sections -fdata-sections -Wl,--allow-multiple-definition' CFLAGS='-Os -static -ffunction-sections -fdata-sections -fcommon -Wno-maybe-uninitialized' && \
+CC=gcc LDFLAGS='-static -Wl,--gc-sections -ffunction-sections -fdata-sections -Wl,--allow-multiple-definition' make -j\$(nproc) && \
 strip src/dash && \
 upx --lzma src/dash"
 mkdir -p dist
