@@ -107,10 +107,16 @@ patch \
 upx \
 perl && \
 wget "https://github.com/gfunkmonk/dash-static-musl/raw/refs/heads/main/patches.tar.gz" && \
-mkdir patches/ && tar xf patches.tar.gz -C patches/ && \
+tar xf patches.tar.gz && \
 tar xf dash-${DASH_VERSION}.tar.gz && \
 cd dash-${DASH_VERSION}/ && \
-for i in ../patches/*.patch; do patch -p1 < "$i"; done && \
+patch -p1 < ../0008-Support-e-in-echo-and-printf-builtins.patch && \
+patch -p1 < ../0009-dash-Fix-stack-overflow-from-infinite-recursion-in-s.patch && \
+patch -p1 < ../0012-enable-large-file-support-when-available.patch && \
+patch -p1 < ../0017-histedit-Fix-infinite-loop-when-using-fc--s.patch && \
+patch -p1 < ../0022-builtin-Align-test-nt-and-ot-with-POSIX.1-2024.patch && \
+patch -p1 < ../0023-parser-Fix-here-doc-EOF-marker-bug-with-negative-cha.patch && \
+patch -p1 < ../9001-Add-privmode.patch && \
 ./configure CC=gcc --enable-static LDFLAGS='-static -Wl,--gc-sections -ffunction-sections -fdata-sections -Wl,--allow-multiple-definition' CFLAGS='-Os -static -ffunction-sections -fdata-sections -fcommon -Wno-maybe-uninitialized' && \
 CC=gcc LDFLAGS='-static -Wl,--gc-sections -ffunction-sections -fdata-sections -Wl,--allow-multiple-definition' make -j\$(nproc) && \
 strip src/dash && \
