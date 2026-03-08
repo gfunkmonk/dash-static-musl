@@ -107,6 +107,7 @@ readline-static \
 libedit \
 libedit-dev \
 libedit-static \
+ncurses-static \
 autoconf \
 patch \
 upx \
@@ -116,7 +117,7 @@ tar xf dash-${DASH_VERSION}.tar.gz && \
 cd dash-${DASH_VERSION}/ && \
 patch -p1 --fuzz=4 < ../mega.patch && \
 autoreconf -f -i && \
-./configure --with-libedit --enable-static LDFLAGS='-static -ledit -Wl,--gc-sections -ffunction-sections -fdata-sections' PKG_CONFIG='pkg-config --static' CFLAGS='-Os -ffunction-sections -fdata-sections -Wno-misleading-indentation -Wno-maybe-uninitialized' && \
+./configure --with-libedit --enable-static LDFLAGS='-static -ledit -lncursesw -Wl,--gc-sections -ffunction-sections -fdata-sections' PKG_CONFIG='pkg-config --static' CFLAGS='-Os -ffunction-sections -fdata-sections -Wno-misleading-indentation -Wno-maybe-uninitialized' && \
 make -j\$(nproc) && \
 strip src/dash && \
 upx --lzma src/dash"
