@@ -113,7 +113,6 @@ patch -p1 --fuzz=4 < ../0009-dash-Fix-stack-overflow-from-infinite-recursion-in-
 patch -p1 --fuzz=4 < ../0012-enable-large-file-support-when-available.patch && \
 patch -p1 --fuzz=4 < ../0017-histedit-Fix-infinite-loop-when-using-fc--s.patch && \
 patch -p1 --fuzz=4 < ../9001-Add-privmode.patch && \
-patch -p1 --fuzz=4 < ../dash-0.5.12-c23-lto.patch && \
 patch -p1 --fuzz=4 < ../dash-0.5.12-c23.patch && \
 autoreconf -f -i && \
 ./configure --enable-static LDFLAGS='-static -Wl,--gc-sections -ffunction-sections -fdata-sections' CFLAGS='-Os -ffunction-sections -fdata-sections -Wno-misleading-indentation -Wno-maybe-uninitialized' && \
