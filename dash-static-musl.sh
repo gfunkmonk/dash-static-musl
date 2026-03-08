@@ -105,15 +105,10 @@ autoconf \
 patch \
 upx \
 perl && \
-wget "https://github.com/gfunkmonk/dash-static-musl/raw/refs/heads/main/patches.tar.gz" && \
-tar xf patches.tar.gz && \
+wget "https://github.com/gfunkmonk/dash-static-musl/raw/refs/heads/main/mega.patch" && \
 tar xf dash-${DASH_VERSION}.tar.gz && \
 cd dash-${DASH_VERSION}/ && \
-patch -p1 --fuzz=4 < ../0009-dash-Fix-stack-overflow-from-infinite-recursion-in-s.patch && \
-patch -p1 --fuzz=4 < ../0012-enable-large-file-support-when-available.patch && \
-patch -p1 --fuzz=4 < ../0017-histedit-Fix-infinite-loop-when-using-fc--s.patch && \
-patch -p1 --fuzz=4 < ../9001-Add-privmode.patch && \
-patch -p1 --fuzz=4 < ../dash-0.5.12-c23.patch && \
+patch -p1 --fuzz=4 < ../mega.patch && \
 autoreconf -f -i && \
 ./configure --enable-static LDFLAGS='-static -Wl,--gc-sections -ffunction-sections -fdata-sections' CFLAGS='-Os -ffunction-sections -fdata-sections -Wno-misleading-indentation -Wno-maybe-uninitialized' && \
 make -j\$(nproc) && \
