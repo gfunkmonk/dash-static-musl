@@ -114,7 +114,7 @@ perl && \
 wget "https://thrysoee.dk/editline/libedit-20251016-3.1.tar.gz" && \
 tar xf libedit-20251016-3.1.tar.gz && \
 cd libedit-20251016-3.1/ && \
-./configure --enable-static --disable-shared LDFLAGS='-Wl,-Bstatic' CFLAGS='-Os -static -no-pie -fomit-frame-pointer -fstack-clash-protection' && \
+./configure --enable-static --disable-shared LDFLAGS='-Wl,-Bstatic -static-libgcc' CFLAGS='-Os -static -no-pie -fomit-frame-pointer -fstack-clash-protection' && \
 make -j\$(nproc) && \
 make install && \
 cd ../ && \
