@@ -114,7 +114,7 @@ perl && \
 wget "https://thrysoee.dk/editline/libedit-20251016-3.1.tar.gz" && \
 tar xf libedit-20251016-3.1.tar.gz && \
 cd libedit-20251016-3.1/ && \
-./configure --enable-static --disable-shared LDFLAGS='-static' CFLAGS='-Os -no-pie -fomit-frame-pointer' && \
+./configure --enable-static --disable-shared LDFLAGS='-all-static' CFLAGS='-Os -no-pie -fomit-frame-pointer' && \
 make -j\$(nproc) && \
 make install && \
 cd ../ && \
@@ -123,7 +123,7 @@ tar xf dash-${DASH_VERSION}.tar.gz && \
 cd dash-${DASH_VERSION}/ && \
 patch -p1 --fuzz=4 < ../mega.patch && \
 autoreconf -f -i && \
-./configure --with-libedit --enable-static LDFLAGS='-static -L/usr/local/lib -lncurses' CFLAGS='-Os -I/usr/local/include -no-pie -fomit-frame-pointer' && \
+./configure --with-libedit --enable-static LDFLAGS='-all-static -L/usr/local/lib -lncurses -ledit' CFLAGS='-Os -I/usr/local/include -no-pie -fomit-frame-pointer' && \
 make -j\$(nproc) && \
 strip src/dash && \
 upx --lzma src/dash"
