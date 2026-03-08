@@ -102,7 +102,6 @@ libtool \
 bison \
 flex \
 autoconf \
-autoconf \
 patch \
 upx \
 perl && \
@@ -115,6 +114,7 @@ patch -p1 --fuzz=4 < ../0009-dash-Fix-stack-overflow-from-infinite-recursion-in-
 patch -p1 --fuzz=4 < ../0012-enable-large-file-support-when-available.patch && \
 patch -p1 --fuzz=4 < ../0017-histedit-Fix-infinite-loop-when-using-fc--s.patch && \
 patch -p1 --fuzz=4 < ../9001-Add-privmode.patch && \
+autoreconf -f -i && \
 ./configure CC=gcc --enable-static LDFLAGS='-static -Wl,--gc-sections -ffunction-sections -fdata-sections -Wl,--allow-multiple-definition' CFLAGS='-Os -static -ffunction-sections -fdata-sections -fcommon -Wno-maybe-uninitialized' && \
 CC=gcc LDFLAGS='-static -Wl,--gc-sections -ffunction-sections -fdata-sections -Wl,--allow-multiple-definition' make -j\$(nproc) && \
 strip src/dash && \
