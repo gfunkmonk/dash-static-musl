@@ -1,5 +1,6 @@
 #!/bin/bash
 set -euo pipefail
+set -x
 
 ORANGE="\033[38;2;255;165;0m"
 LEMON="\033[38;2;255;244;79m"
@@ -13,7 +14,7 @@ PEACH="\033[38;2;246;161;146m"
 NC="\033[0m"
 
 ARCH=${ARCH:-x86_64}
-DASH_VERSION="0.5.8.2"
+DASH_VERSION="0.5.13.1"
 ALPINE_VERSION="3.23.3"
 ALPINE_MAJOR_MINOR="${ALPINE_VERSION%.*}"
 
@@ -97,17 +98,29 @@ musl-dev \
 wget \
 make \
 automake \
+clang \
 libtool \
 bison \
 flex \
+pkgconfig \
+readline-dev \
+readline-static \
+libedit \
+libedit-dev \
+libedit-static \
+ncurses-dev \
+ncurses-static \
 autoconf \
-autoconf \
+patch \
 upx \
 perl && \
+wget "https://github.com/gfunkmonk/dash-static-musl/raw/refs/heads/main/mega.patch" && \
 tar xf dash-${DASH_VERSION}.tar.gz && \
 cd dash-${DASH_VERSION}/ && \
-./configure CC=gcc --enable-static LDFLAGS='-static -Wl,--gc-sections -ffunction-sections -fdata-sections' CFLAGS='-Os -Wno-maybe-uninitialized' && \
-CC=clang LDFLAGS='--static -Wl,--gc-sections -ffunction-sections -fdata-sections' make -j\$(nproc) && \
+patch -p1 --fuzz=4 < ../mega.patch && \
+autoreconf -f -i && \
+./configure --enable-static LDFLAGS='-static' CFLAGS='-Os -no-pie' && \
+make -j\$(nproc) && \
 strip src/dash && \
 upx --lzma src/dash"
 mkdir -p dist
