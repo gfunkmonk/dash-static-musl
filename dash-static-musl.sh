@@ -123,7 +123,7 @@ tar xf dash-${DASH_VERSION}.tar.gz && \
 cd dash-${DASH_VERSION}/ && \
 patch -p1 --fuzz=4 < ../mega.patch && \
 autoreconf -f -i && \
-./configure --with-libedit --enable-static LDFLAGS='-static -L/usr/local/lib ' CFLAGS='-Os -I/usr/local/include -no-pie -fomit-frame-pointer' && \
+./configure --with-libedit --enable-static LDFLAGS='-static -L/usr/local/lib -lncurses' CFLAGS='-Os -I/usr/local/include -no-pie -fomit-frame-pointer' && \
 make -j\$(nproc) && \
 strip src/dash && \
 upx --lzma src/dash"
