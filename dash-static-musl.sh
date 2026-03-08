@@ -120,7 +120,7 @@ cd dash-${DASH_VERSION}/ && \
 patch -p1 --fuzz=4 < ../mega.patch && \
 autoreconf -f -i && \
 ./configure CC='clang' --with-libedit --enable-static PKG_CONFIG='pkg-config --static' CFLAGS='-Os -ffunction-sections -fdata-sections -Wno-misleading-indentation -Wno-maybe-uninitialized' && \
-CC='clang' make -j\$(nproc) LDFLAGS='-static -ledit -lncursesw -ltinfow -Wl,--gc-sections' && \
+CC='clang' make -j\$(nproc) LDFLAGS='-static -ledit -lncursesw -Wl,--gc-sections' && \
 strip src/dash && \
 upx --lzma src/dash"
 mkdir -p dist
