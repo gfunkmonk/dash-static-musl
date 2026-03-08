@@ -109,7 +109,6 @@ wget "https://github.com/gfunkmonk/dash-static-musl/raw/refs/heads/main/patches.
 tar xf patches.tar.gz && \
 tar xf dash-${DASH_VERSION}.tar.gz && \
 cd dash-${DASH_VERSION}/ && \
-patch -p1 --fuzz=4 < ../0008-Support-e-in-echo-and-printf-builtins.patch && \
 patch -p1 --fuzz=4 < ../0009-dash-Fix-stack-overflow-from-infinite-recursion-in-s.patch && \
 patch -p1 --fuzz=4 < ../0012-enable-large-file-support-when-available.patch && \
 patch -p1 --fuzz=4 < ../0017-histedit-Fix-infinite-loop-when-using-fc--s.patch && \
