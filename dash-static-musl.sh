@@ -114,9 +114,10 @@ patch -p1 --fuzz=4 < ../0009-dash-Fix-stack-overflow-from-infinite-recursion-in-
 patch -p1 --fuzz=4 < ../0012-enable-large-file-support-when-available.patch && \
 patch -p1 --fuzz=4 < ../0017-histedit-Fix-infinite-loop-when-using-fc--s.patch && \
 patch -p1 --fuzz=4 < ../9001-Add-privmode.patch && \
-export WARNFLAGS="-Wno-misleading-indentation -Wno-maybe-uninitialized" && autoreconf -f -i && \
-export LDFLAGS="-static -Wl,--gc-sections -ffunction-sections -fdata-sections" && export CFLAGS="-Os -ffunction-sections -fdata-sections ${WARNFLAGS}" && \
-./configure --enable-static && make -j\$(nproc) && strip src/dash && \
+autoreconf -f -i && \
+LDFLAGS="-static -Wl,--gc-sections -ffunction-sections -fdata-sections" CFLAGS="-Os -ffunction-sections -fdata-sections -Wno-misleading-indentation -Wno-maybe-uninitialized" ./configure --enable-static && \
+make -j\$(nproc) && \
+strip src/dash && \
 upx --lzma src/dash"
 mkdir -p dist
 cp "./pasta/dash-${DASH_VERSION}/src/dash" "dist/dash-${ARCH}"
