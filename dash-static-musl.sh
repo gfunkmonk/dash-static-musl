@@ -103,6 +103,8 @@ bison \
 flex \
 readline-dev \
 readline-static \
+libedit-dev \
+libedit-static \
 autoconf \
 patch \
 upx \
