@@ -110,7 +110,7 @@ wget "https://github.com/gfunkmonk/dash-static-musl/raw/refs/heads/main/patches.
 mkdir patches/ && tar xf patches.tar.gz -C patches/ && \
 tar xf dash-${DASH_VERSION}.tar.gz && \
 cd dash-${DASH_VERSION}/ && \
-find ../patches -type f -name '*.patch' -print0 | xargs -0 -n 1 patch -p1 && \
+for i in ../patches/*.patch; do patch -p1 < "$i"; done && \
 ./configure CC=gcc --enable-static LDFLAGS='-static -Wl,--gc-sections -ffunction-sections -fdata-sections -Wl,--allow-multiple-definition' CFLAGS='-Os -static -ffunction-sections -fdata-sections -fcommon -Wno-maybe-uninitialized' && \
 CC=gcc LDFLAGS='-static -Wl,--gc-sections -ffunction-sections -fdata-sections -Wl,--allow-multiple-definition' make -j\$(nproc) && \
 strip src/dash && \
