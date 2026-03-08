@@ -114,13 +114,20 @@ autoconf \
 patch \
 upx \
 perl && \
+wget "https://thrysoee.dk/editline/libedit-20251016-3.1.tar.gz" && \
+tar xf libedit-20251016-3.1.tar.gz && \
+cd libedit-20251016-3.1/ && \
+./configure --enable-static --disable-shared CC=musl-gcc LDFLAGS='-static' CFLAGS='-Os -no-pie' && \
+CC=musl-gcc make -j\$(nproc) && \
+make install && \
+cd ../ && \
 wget "https://github.com/gfunkmonk/dash-static-musl/raw/refs/heads/main/mega.patch" && \
 tar xf dash-${DASH_VERSION}.tar.gz && \
 cd dash-${DASH_VERSION}/ && \
 patch -p1 --fuzz=4 < ../mega.patch && \
 autoreconf -f -i && \
-./configure --enable-static LDFLAGS='-static' CFLAGS='-Os -no-pie' && \
-make -j\$(nproc) && \
+./configure CC=musl-gcc --with-libedit --enable-static LDFLAGS='-static' CFLAGS='-Os -no-pie' && \
+CC=musl-gcc make -j\$(nproc) && \
 strip src/dash && \
 upx --lzma src/dash"
 mkdir -p dist
