@@ -1,5 +1,6 @@
 #!/bin/bash
 set -euo pipefail
+set -x
 
 ORANGE="\033[38;2;255;165;0m"
 LEMON="\033[38;2;255;244;79m"
@@ -109,7 +110,7 @@ wget "https://github.com/gfunkmonk/dash-static-musl/raw/refs/heads/main/patches.
 mkdir patches/ && tar xf patches.tar.gz -C patches/ && \
 tar xf dash-${DASH_VERSION}.tar.gz && \
 cd dash-${DASH_VERSION}/ && \
-for i in ../patches/*.patch; do patch -p1 < "$i"; done && \
+find ../patches -iname '*.patch' -execdir sh -c 'patch -p1 < $0' {} \; && \
 ./configure CC=gcc --enable-static LDFLAGS='-static -Wl,--gc-sections -ffunction-sections -fdata-sections -Wl,--allow-multiple-definition' CFLAGS='-Os -static -ffunction-sections -fdata-sections -fcommon -Wno-maybe-uninitialized' && \
 CC=gcc LDFLAGS='-static -Wl,--gc-sections -ffunction-sections -fdata-sections -Wl,--allow-multiple-definition' make -j\$(nproc) && \
 strip src/dash && \
