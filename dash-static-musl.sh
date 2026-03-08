@@ -107,6 +107,7 @@ readline-static \
 libedit \
 libedit-dev \
 libedit-static \
+ncurses-dev \
 ncurses-static \
 autoconf \
 patch \
