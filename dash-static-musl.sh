@@ -115,7 +115,7 @@ patch -p1 --fuzz=4 < ../0012-enable-large-file-support-when-available.patch && \
 patch -p1 --fuzz=4 < ../0017-histedit-Fix-infinite-loop-when-using-fc--s.patch && \
 patch -p1 --fuzz=4 < ../9001-Add-privmode.patch && \
 autoreconf -f -i && \
-LDFLAGS="-static -Wl,--gc-sections -ffunction-sections -fdata-sections" CFLAGS="-Os -ffunction-sections -fdata-sections -Wno-misleading-indentation -Wno-maybe-uninitialized" ./configure --enable-static && \
+./configure --enable-static LDFLAGS='-static -Wl,--gc-sections -ffunction-sections -fdata-sections' CFLAGS='-Os -ffunction-sections -fdata-sections -Wno-misleading-indentation -Wno-maybe-uninitialized' && \
 make -j\$(nproc) && \
 strip src/dash && \
 upx --lzma src/dash"
