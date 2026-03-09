@@ -125,12 +125,13 @@ autoconf \
 patch \
 libedit-dev \
 libedit-static \
+mold \
 upx && \
 tar xf dash-${DASH_VERSION}.tar.gz && \
 cd dash-${DASH_VERSION}/ && \
 autoreconf -f -i && \
 ./configure --enable-static --with-libedit \
-  LDFLAGS='-static -lncursesw' \
+  LDFLAGS='-static -lncursesw -fuse-ld=mold' \
   PKG_CONFIG='pkg-config --static' \
   CFLAGS='-Os -no-pie -fomit-frame-pointer -fstack-clash-protection' \
   CXXFLAGS='-fno-delete-null-pointer-checks -fno-schedule-insns2' && \
