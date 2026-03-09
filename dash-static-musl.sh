@@ -111,7 +111,6 @@ sudo chroot ./pasta/ /bin/sh -c "set -e && apk update && apk add build-base \
 musl-dev \
 make \
 automake \
-clang \
 libtool \
 bison \
 flex \
@@ -120,6 +119,8 @@ readline-dev \
 readline-static \
 ncurses-dev \
 ncurses-static \
+ncurses-terminfo \
+libncursesw \
 autoconf \
 patch \
 libedit-dev \
