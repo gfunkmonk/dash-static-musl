@@ -127,10 +127,9 @@ libedit-static \
 upx && \
 tar xf dash-${DASH_VERSION}.tar.gz && \
 cd dash-${DASH_VERSION}/ && \
-patch -p1 --fuzz=4 < ../mega.patch && \
 autoreconf -f -i && \
-./configure --enable-static \
-  LDFLAGS='-static' \
+./configure --enable-static --with-libedit \
+  LDFLAGS='-static -lncursesw' \
   PKG_CONFIG='pkg-config --static' \
   CFLAGS='-Os -no-pie -fomit-frame-pointer -fstack-clash-protection' \
   CXXFLAGS='-fno-delete-null-pointer-checks -fno-schedule-insns2' && \
